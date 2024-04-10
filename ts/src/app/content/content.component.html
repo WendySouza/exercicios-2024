@@ -78,7 +78,7 @@
 
 </div>
 
-<div (click)="AtivarBotao()" class="resumo">
+<div (click)="AtivarBotaoVerMais()" class="resumo" style="cursor: pointer;">
   <div class="resumo_titulo">
     <span>Resumo</span>
   </div>
@@ -91,7 +91,7 @@
       Quisque sollicitudin ligula in sapien scelerisque, ac gravida eros vestibulum Phasellus condimentum orci id leo
       condimentum lobortis et non lorem. Sed id nisl metus. Quisque sollicitudin ligula in sapien scelerisque, ac
       gravida eros vestibulum. Etiam aliquam dictum nisl, vel aliquet enim accumsan sit ametl accumsant...
-      <a>ver mais</a>
+      <a class="btn-show-more">ver mais</a>
     </span>
   </div>
   <div *ngIf="textoVisivel" class="resumo_introducao">
@@ -133,23 +133,23 @@
   </div>
 
   <div *ngIf="!formulario_ativo" class="compartilhe_ideias">
-    <span class="compartilhe_ideias_titulo">Compartilhe suas ideias ou dúvidas com os autores!</span>
+    <span class="dicussoes_subtitulo">Compartilhe suas ideias ou dúvidas com os autores!</span>
     <div class="compartilhe_ideias_imagens">
       <img src="./assets/icone1.png" alt="">
       <img src="./assets/icone2.png" alt="">
       <img src="./assets/icone3.png" alt="">
     </div>
     <div class="compartilhe_ideias_frase">
-      <span class="compartilhe_ideias_frase_titulo">Sabia que o maior estímulo no desenvolvimento científico e cultural
+      <span class="discussoes_frase">Sabia que o maior estímulo no desenvolvimento científico e cultural
         é a curiosidade? Deixe seus<br> questionamentos ou sugestões para o autor!</span>
     </div>
-    <button type="button" class="criar_topico" (click)="ativar_formulario()">+ criar tópico</button>
+    <button type="button" class="btn-create-topic" (click)="ativar_formulario()">+ criar tópico</button>
     <div class="traco"></div>
   </div>
 
   <form (submit)="onSubmit($event)">
     <div *ngIf="formulario_ativo && formulario_desativado" class="formulario">
-      <div class="subtitulo">
+      <div class="frase_sugestao">
         <span>Tem uma dúvida ou sugestão? Compartilhe seu feedback com os autores!</span>
       </div>
 
@@ -158,14 +158,8 @@
         <label for="assunto">Assunto</label>
 
         <div class="caixas">
-          <input
-            type="text"
-            id="assunto"
-            formControlName="assunto"
-            class="form_caixa_assunto"
-            placeholder="Defina um tópico sucinto para notificar os autores..."
-            (focus)="limparPlaceholder($event)"
-          >
+          <input type="text" id="assunto" formControlName="assunto" class="form_caixa_assunto"
+            placeholder="Defina um tópico sucinto para notificar os autores..." (focus)="limparPlaceholder($event)">
 
         </div>
       </div>
@@ -178,8 +172,8 @@
 
         <div class="caixas">
           <textarea id="conteudo" formControlName="conteudo" class="form_caixa_text" rows="5"></textarea>
-          <div class="retangulo">
-              <button (click)="formulario_nao_aparece()" class="botao_enviar" type="submit">Enviar</button>
+          <div class="retangulo_form">
+            <button (click)="formulario_nao_aparece()" class="botao_enviar" type="submit">Enviar</button>
           </div>
 
         </div>
@@ -190,39 +184,41 @@
     </div>
   </form>
 
-  <div *ngIf="seu_topico_foi_enviado" class="formulario_enviado" style="display: flex; flex-direction: column; align-items: center;">
-    <div style="margin-top: 15px;">
-      <span class="compartilhe_ideias_titulo">
+  <div *ngIf="seu_topico_foi_enviado" class="formulario_enviado">
+    <div class="enviado_com_sucesso">
+      <span class="dicussoes_subtitulo">
         Seu tópico foi enviado com sucesso! :D
       </span>
     </div>
 
-    <div style="margin-top: 18px;">
-      <span class="compartilhe_ideias_frase_titulo">
+    <div class="agradecemos_contribuicao">
+      <span class="discussoes_frase">
         Agradecemos por sua contribuição, uma notificação será enviada ao seu email assim que seu tópico for respondido!
       </span>
     </div>
 
-    <div style="margin-top: 29px;">
+    <div class="descubra">
       <a class="descubra_outros_trabalhos">Descubra outros trabalhos!</a>
     </div>
 
     <button (click)="criar_novo_topico()" class="botao_novo_topico">criar novo tópico</button>
-    <div style="
-    width: 1027px;
-    background-color: rgba(231, 231, 231, 1);
-    border: 4px;
-    height: 1px;
-    margin: 0 auto;
-    position: relative;
-    top: -29px;
-    z-index: -1;"></div>
+    <div class="traco_novo_topico"></div>
 
-    <div class="card_assuntos" style="height: 148px; background-color: rgba(231, 231, 231, 1); border: 1px solid rgba(231, 231, 231, 1);">
+    <!-- ABAIXO O CARD COM EFEITO BLUR DO FORMULÁRIO -->
+    <div>
+    <div class="card_assuntos"
+      style="height: 148px; background-color: rgba(231, 231, 231, 1); border: 1px solid rgba(231, 231, 231, 1);">
       <span class="card_assuntos_titulo" style="filter: blur(5px)">Assunto da pergunta aparece aqui</span>
       <span class="card_assuntos_nome" style="filter: blur(5px)">Carlos Henrique Santos</span>
-      <span class="card_assuntos_comentario" style="filter: blur(5px)">Comecinho da pergunta aparece aqui resente relato inscreve-se no campo da
-        análise da dimensão e impacto de processo formativo situado impacto de processo formativo processo...</span>
+      <span class="card_assuntos_comentario" style="filter: blur(5px)">Comecinho da pergunta aparece aqui resente relato
+        inscreve-se no campo da análise da dimensão e impacto de processo formativo situado impacto de processo formativo processo...</span>
+
+      <div class="aguardando">
+        <img class="verificado_feedback" src="./assets/verificado_feedback.svg">
+        <span class="aguardando_feedback">Aguardando feedback dos autores</span>
+        <a class="editar_topico" >Editar tópico</a>
+      </div>
+    </div>
 
     </div>
   </div>
@@ -237,8 +233,8 @@
     </div>
   </div>
 
-  <div (click)="AtivarBotao2()" class="card_assuntos_movel">
-    <div *ngIf="!comentarioVisivel" class="card_assuntos">
+  <div (click)="AtivarBotaoCardAssuntos()" class="answered-topic ops-topic-subject">
+    <div *ngIf="!comentarioVisivel" class="card_assuntos" style="cursor: pointer;">
       <span class="card_assuntos_titulo">Assunto da pergunta aparece aqui</span>
       <span class="card_assuntos_nome">Carlos Henrique Santos</span>
       <span class="card_assuntos_comentario">Comecinho da pergunta aparece aqui resente relato inscreve-se no campo da
@@ -250,7 +246,7 @@
 
     <div *ngIf="comentarioVisivel" class="card_respostas">
 
-      <div class="card_assuntos">
+      <div class="card_assuntos" style="cursor: pointer;">
         <span class="card_assuntos_titulo">Assunto da pergunta aparece aqui</span>
         <span class="card_assuntos_nome">Carlos Henrique Santos</span>
         <span class="card_assuntos_comentario">Comecinho da pergunta aparece aqui resente relato inscreve-se no campo da
@@ -261,7 +257,7 @@
           <img src="./assets/card_footer2.svg">
         </div>
 
-        <div class="card_respondido">
+        <div class="comments-container">
           <div class="card_superior">
             <div class="card_respondido_nome">
               <span>Adriano da Silva</span>
@@ -284,7 +280,7 @@
             <br><br>Obrigada pela resposta, muito interessante o seu trabalho!</span>
         </div>
 
-        <div class="card_respondido">
+        <div class="comments-container">
           <div class="card_superior">
             <div class="card_respondido_nome">
               <span>Carmila Ferreira Andrade</span>
@@ -302,7 +298,7 @@
             formativo processo.</span>
         </div>
 
-        <div class="card_respondido">
+        <div class="comments-container">
           <div class="card_superior">
             <div class="card_respondido_nome">
               <span>Ana Carolina</span>

@@ -24,12 +24,12 @@ export class ContentComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  AtivarBotao() {
+  AtivarBotaoVerMais() {
     this.ativado = !this.ativado;
     this.textoVisivel = !this.textoVisivel;
   }
 
-  AtivarBotao2() {
+  AtivarBotaoCardAssuntos() {
     this.ativado = !this.ativado;
     this.comentarioVisivel = !this.comentarioVisivel;
   }
